@@ -72,12 +72,12 @@ func run(kubeconfigOut string) error {
 
 	kubeconfig := clientcmdapi.Config{
 		Clusters: map[string]*clientcmdapi.Cluster{
-			"envtest": {Server: cfg.Host, CertificateAuthorityData: cfg.TLSClientConfig.CAData},
+			"envtest": {Server: cfg.Host, CertificateAuthorityData: cfg.CAData},
 		},
 		AuthInfos: map[string]*clientcmdapi.AuthInfo{
 			"envtest": {
-				ClientCertificateData: cfg.TLSClientConfig.CertData,
-				ClientKeyData:         cfg.TLSClientConfig.KeyData,
+				ClientCertificateData: cfg.CertData,
+				ClientKeyData:         cfg.KeyData,
 				Token:                 cfg.BearerToken,
 			},
 		},
