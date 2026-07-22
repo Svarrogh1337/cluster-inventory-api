@@ -126,6 +126,21 @@ The suite currently covers the core (Required) conformance behaviors:
   accessProviders) and spec/status isolation in both directions
 - `metav1.Condition` conventions on status conditions
 
-The optional/extended specs (label conventions, KEP-5339 access provider
-extensions, `credentialProviders` deprecation precedence, watch delivery) are
-tracked in [issue #60](https://github.com/kubernetes-sigs/cluster-inventory-api/issues/60).
+The extended (Optional) behaviors are covered as well:
+
+- the `x-k8s.io/cluster-manager` label convention and the
+  `multicluster.x-k8s.io/clusterset` namespace label convention — both
+  observational: they verify ClusterProfile objects managed by a real cluster
+  manager and skip when none exist (e.g. on a bare envtest cluster)
+- preservation of the KEP-5339 `client.authentication.k8s.io/exec` cluster
+  extension on access providers (the `additional-args`/`additional-envs`
+  extensions are excluded until the KEP-vs-CRD payload-shape conflict is
+  resolved upstream: the KEP specifies bare string arrays, the CRD schema only
+  accepts objects)
+- coexistence of the deprecated `credentialProviders` field with
+  `accessProviders`, stored verbatim without merging
+- watch event delivery for create, update and delete
+- patch requests through the generated typed clientset
+
+Progress is tracked in
+[issue #60](https://github.com/kubernetes-sigs/cluster-inventory-api/issues/60).
