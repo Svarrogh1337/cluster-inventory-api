@@ -33,7 +33,7 @@ The suite accepts the following flags:
 
 | Flag | Description |
 | ---- | ----------- |
-| `--kubeconfig` | Absolute path to the kubeconfig of the cluster serving the ClusterProfile API. Standard loading rules (`$KUBECONFIG`, `~/.kube/config`) apply if unset. |
+| `--kubeconfig` | Path to the kubeconfig of the cluster serving the ClusterProfile API. Standard loading rules (`$KUBECONFIG`, `~/.kube/config`) apply if unset. Prefer an absolute path when running through `make`: the suite executes from the `conformance/` directory, so relative paths resolve against it. |
 | `--context` | Kubeconfig context to use. Defaults to the current context. |
 | `--namespace` | Namespace used for ClusterProfile objects created by the suite. If unset, a temporary namespace is created and removed when the suite completes. |
 | `--organization` | Name of the organization responsible for the implementation being tested. |

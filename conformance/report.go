@@ -110,8 +110,8 @@ func lookupSpecRef(fullText string) string {
 func init() {
 	dummyErr := errors.New("dummy")
 	errorRegEx = regexp.MustCompile(fmt.Sprintf(`\s*(.*)\s*(?:%s|%s|The function passed to)\s*.*\s*(.*)`,
-		firstLine((&matchers.HaveOccurredMatcher{}).NegatedFailureMessage(dummyErr)),
-		firstLine((&matchers.SucceedMatcher{}).FailureMessage(dummyErr))))
+		regexp.QuoteMeta(firstLine((&matchers.HaveOccurredMatcher{}).NegatedFailureMessage(dummyErr))),
+		regexp.QuoteMeta(firstLine((&matchers.SucceedMatcher{}).FailureMessage(dummyErr)))))
 }
 
 var _ = ginkgo.ReportBeforeEach(func(specReport ginkgo.SpecReport) {
