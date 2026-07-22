@@ -80,7 +80,7 @@ ENVTEST_KUBECONFIG ?= $(LOCALBIN)/conformance-envtest.kubeconfig
 # The control plane helper is built and executed directly (not via `go run`) so the
 # clean-up trap signals the process that owns the control plane.
 .PHONY: test-conformance-envtest
-test-conformance-envtest: envtest ## Run the conformance suite against a temporary envtest control plane.
+test-conformance-envtest: envtest manifests ## Run the conformance suite against a temporary envtest control plane.
 	@set -e; \
 	go build -o $(LOCALBIN)/conformance-envtest ./hack/conformance-envtest; \
 	rm -f $(ENVTEST_KUBECONFIG); \
@@ -97,7 +97,7 @@ KIND_CLUSTER_NAME ?= cluster-inventory-conformance
 KIND_NODE_IMAGE ?=
 
 .PHONY: kind-conformance-up
-kind-conformance-up: kind ## Create the conformance kind cluster (if needed) and install the CRDs into it.
+kind-conformance-up: kind manifests ## Create the conformance kind cluster (if needed) and install the CRDs into it.
 	@$(KIND) get clusters 2>/dev/null | grep -qx "$(KIND_CLUSTER_NAME)" || \
 		$(KIND) create cluster --name $(KIND_CLUSTER_NAME) $(if $(KIND_NODE_IMAGE),--image $(KIND_NODE_IMAGE))
 	$(KUBECTL) --context kind-$(KIND_CLUSTER_NAME) apply -f config/crd/bases
