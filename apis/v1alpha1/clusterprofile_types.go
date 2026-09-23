@@ -39,9 +39,9 @@ type ClusterProfileSpec struct {
 //
 // This field is immutable.
 // It's recommended that each cluster manager instance should set a different values to this field.
-// In addition, it's recommended that a predefined label with key "x-k8s.io/cluster-manager"
-// should be added by the cluster manager upon creation. See constant LabelClusterManagerKey.
-// The value of the label should be the same as the name of the cluster manager.
+// In addition, a predefined label with key "x-k8s.io/cluster-manager" MUST be added by the
+// cluster manager upon creation. See constant LabelClusterManagerKey.
+// The value of the label MUST be the same as the name of the cluster manager.
 // The purpose of this label is to make filter clusters from different cluster managers easier.
 //
 // +kubebuilder:validation:XValidation:rule="self == oldSelf",message="ClusterManager is immutable"
@@ -150,7 +150,8 @@ const (
 
 const (
 	// LabelClusterManagerKey is used to indicate the name of the cluster manager that a ClusterProfile belongs to.
-	// The value of the label MUST be the same as the name of the cluster manager.
+	// The cluster manager MUST add this label to every ClusterProfile it creates, and
+	// the value of the label MUST be the same as the name of the cluster manager.
 	// The purpose of this label is to make filter clusters from different cluster managers easier.
 	LabelClusterManagerKey = "x-k8s.io/cluster-manager"
 
